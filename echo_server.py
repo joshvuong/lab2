@@ -17,7 +17,7 @@ def handle_connection(conn, addr):
 
 def start_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind(HOST, PORT)
+        s.bind((HOST, PORT))
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.listen()
         conn, addr = s.accept()
@@ -30,7 +30,7 @@ def start_threaded_server():
         s.listen(2)
         while True:
             conn, addr = s.accept()
-            thread = Thread(target=handle_connection, args =(conn, addr))
+            thread = Thread(target=handle_connection, args=(conn, addr))
             thread.run()
 
 start_server()
